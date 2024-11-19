@@ -1,0 +1,39 @@
+/* Genel Ayarlar */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #f4f4f4;
+}
+
+/* Buton Stilleri */
+.button {
+    -fx-background-color: #2a9d8f;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5;
+    -fx-padding: 10px 20px;
+}
+
+.button:hover {
+    -fx-background-color: #21867a;
+}
+
+/* Metin Alanı Stilleri */
+.text-field {
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+    -fx-background-color: white;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 5;
+}
+
+/* Etiket Stilleri */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 5;
+}
