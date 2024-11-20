@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -29,6 +30,8 @@ public class BooksController {
     private TextField titleField;
     @FXML
     private TextField authorField;
+    @FXML
+    private Label feedbackLabel;
 
     public BooksController() {
         bookDAO = new BookDAO();
@@ -61,13 +64,13 @@ public class BooksController {
             book.setTitle(title);
             book.setAuthor(author);
             book.setUserId(currentUser.getId());
-            bookDAO.addBook(book);
+            bookDAO.add(book);
             titleField.clear();
             authorField.clear();
             loadBooks();
-            System.out.println("Book added: " + title);
+            feedbackLabel.setText("Book added: " + title);
         } else {
-            System.out.println("Title and author cannot be empty.");
+            feedbackLabel.setText("Title and author cannot be empty.");
         }
     }
 
@@ -79,27 +82,27 @@ public class BooksController {
             if (!title.isEmpty() && !author.isEmpty()) {
                 selectedBook.setTitle(title);
                 selectedBook.setAuthor(author);
-                bookDAO.updateBook(selectedBook);
+                bookDAO.update(selectedBook);
                 loadBooks();
-                System.out.println("Book edited: " + title);
+                feedbackLabel.setText("Book edited: " + title);
             } else {
-                System.out.println("Title and author cannot be empty.");
+                feedbackLabel.setText("Title and author cannot be empty.");
             }
         } else {
-            System.out.println("No book selected.");
+            feedbackLabel.setText("No book selected.");
         }
     }
 
     @FXML
     private void deleteBook() {
         if (selectedBook != null) {
-            bookDAO.deleteBook(selectedBook.getId());
+            bookDAO.delete(selectedBook.getId());
             titleField.clear();
             authorField.clear();
             loadBooks();
-            System.out.println("Book deleted: " + selectedBook.getTitle());
+            feedbackLabel.setText("Book deleted: " + selectedBook.getTitle());
         } else {
-            System.out.println("No book selected.");
+            feedbackLabel.setText("No book selected.");
         }
     }
 

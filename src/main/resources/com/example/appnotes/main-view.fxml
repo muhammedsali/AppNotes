@@ -7,7 +7,6 @@
 <VBox alignment="CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.appnotes.MainController" stylesheets="@/styles.css">
     <Button text="Manage Notes" onAction="#showNotes" minWidth="200" />
     <Button text="Manage Books" onAction="#showBooks" minWidth="200" />
-    <Button text="Logout" onAction="#logout" minWidth="200" />
     <Button text="Export Notes" onAction="#exportNotes" minWidth="200" />
     <Button text="Import Notes" onAction="#importNotes" minWidth="200" />
     <Button text="Logout" onAction="#logout" minWidth="200" />

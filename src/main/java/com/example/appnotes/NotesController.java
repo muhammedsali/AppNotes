@@ -42,7 +42,6 @@ public class NotesController {
         currentUser = LoginController.getCurrentUser();
         loadNotes();
 
-        // Not seçildiğinde ayrıntılarını doldur
         notesListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 String[] parts = newValue.split(": ");
@@ -64,7 +63,7 @@ public class NotesController {
             note.setTitle(title);
             note.setContent(content);
             note.setUserId(currentUser.getId());
-            noteDAO.addNote(note);
+            noteDAO.add(note);
             titleField.clear();
             contentField.clear();
             loadNotes();
@@ -82,7 +81,7 @@ public class NotesController {
             if (!title.isEmpty() && !content.isEmpty()) {
                 selectedNote.setTitle(title);
                 selectedNote.setContent(content);
-                noteDAO.updateNote(selectedNote);
+                noteDAO.update(selectedNote);
                 loadNotes();
                 feedbackLabel.setText("Note edited: " + title);
             } else {
@@ -96,7 +95,7 @@ public class NotesController {
     @FXML
     private void deleteNote() {
         if (selectedNote != null) {
-            noteDAO.deleteNote(selectedNote.getId());
+            noteDAO.delete(selectedNote.getId());
             titleField.clear();
             contentField.clear();
             loadNotes();

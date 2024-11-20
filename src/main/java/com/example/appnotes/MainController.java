@@ -87,7 +87,7 @@ public class MainController {
                         note.setTitle(parts[0]);
                         note.setContent(parts[1]);
                         note.setUserId(currentUser.getId());
-                        noteDAO.addNote(note);
+                        noteDAO.add(note);
                     }
                 });
             } catch (IOException e) {
