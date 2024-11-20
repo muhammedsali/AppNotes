@@ -1,5 +1,6 @@
 package com.example.appnotes;
 
+<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,21 @@ public class UserDAO extends BaseDAO<User> {
 
     @Override
     public void add(User user) {
+=======
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class UserDAO {
+    private Connection connection;
+
+    public UserDAO() {
+        connection = DatabaseConnection.getInstance().getConnection();
+    }
+
+    public void addUser(User user) {
+>>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
         String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, user.getUsername());
@@ -26,6 +42,7 @@ public class UserDAO extends BaseDAO<User> {
         }
     }
 
+<<<<<<< HEAD
     @Override
     public void update(User user) {
         String sql = "UPDATE users SET username = ?, password = ? WHERE id = ?";
@@ -79,17 +96,23 @@ public class UserDAO extends BaseDAO<User> {
         return users;
     }
 
+=======
+>>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
     public User getUserByUsername(String username) {
         String sql = "SELECT * FROM users WHERE username = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
+<<<<<<< HEAD
                 return new User(
                         rs.getInt("id"),
                         rs.getString("username"),
                         rs.getString("password")
                 );
+=======
+                return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"));
+>>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
             }
         } catch (SQLException e) {
             e.printStackTrace();

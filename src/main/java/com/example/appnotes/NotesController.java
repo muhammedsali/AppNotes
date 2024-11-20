@@ -42,6 +42,10 @@ public class NotesController {
         currentUser = LoginController.getCurrentUser();
         loadNotes();
 
+<<<<<<< HEAD
+=======
+        // Not seçildiğinde ayrıntılarını doldur
+>>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
         notesListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 String[] parts = newValue.split(": ");
@@ -63,7 +67,11 @@ public class NotesController {
             note.setTitle(title);
             note.setContent(content);
             note.setUserId(currentUser.getId());
+<<<<<<< HEAD
             noteDAO.add(note);
+=======
+            noteDAO.addNote(note);
+>>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
             titleField.clear();
             contentField.clear();
             loadNotes();
@@ -81,7 +89,11 @@ public class NotesController {
             if (!title.isEmpty() && !content.isEmpty()) {
                 selectedNote.setTitle(title);
                 selectedNote.setContent(content);
+<<<<<<< HEAD
                 noteDAO.update(selectedNote);
+=======
+                noteDAO.updateNote(selectedNote);
+>>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
                 loadNotes();
                 feedbackLabel.setText("Note edited: " + title);
             } else {
@@ -95,7 +107,11 @@ public class NotesController {
     @FXML
     private void deleteNote() {
         if (selectedNote != null) {
+<<<<<<< HEAD
             noteDAO.delete(selectedNote.getId());
+=======
+            noteDAO.deleteNote(selectedNote.getId());
+>>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
             titleField.clear();
             contentField.clear();
             loadNotes();
