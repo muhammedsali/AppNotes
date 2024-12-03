@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NotesController {
 
@@ -31,6 +32,8 @@ public class NotesController {
     @FXML
     private TextField contentField;
     @FXML
+    private TextField searchField;
+    @FXML
     private Label feedbackLabel;
 
     public NotesController() {
@@ -42,10 +45,6 @@ public class NotesController {
         currentUser = LoginController.getCurrentUser();
         loadNotes();
 
-<<<<<<< HEAD
-=======
-        // Not seçildiğinde ayrıntılarını doldur
->>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
         notesListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 String[] parts = newValue.split(": ");
@@ -67,11 +66,7 @@ public class NotesController {
             note.setTitle(title);
             note.setContent(content);
             note.setUserId(currentUser.getId());
-<<<<<<< HEAD
             noteDAO.add(note);
-=======
-            noteDAO.addNote(note);
->>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
             titleField.clear();
             contentField.clear();
             loadNotes();
@@ -89,11 +84,7 @@ public class NotesController {
             if (!title.isEmpty() && !content.isEmpty()) {
                 selectedNote.setTitle(title);
                 selectedNote.setContent(content);
-<<<<<<< HEAD
                 noteDAO.update(selectedNote);
-=======
-                noteDAO.updateNote(selectedNote);
->>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
                 loadNotes();
                 feedbackLabel.setText("Note edited: " + title);
             } else {
@@ -107,11 +98,7 @@ public class NotesController {
     @FXML
     private void deleteNote() {
         if (selectedNote != null) {
-<<<<<<< HEAD
             noteDAO.delete(selectedNote.getId());
-=======
-            noteDAO.deleteNote(selectedNote.getId());
->>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
             titleField.clear();
             contentField.clear();
             loadNotes();
@@ -119,6 +106,20 @@ public class NotesController {
         } else {
             feedbackLabel.setText("No note selected.");
         }
+    }
+
+    @FXML
+    private void searchNotes() {
+        String searchText = searchField.getText().toLowerCase();
+        List<Note> notes = noteDAO.getNotesByUserId(currentUser.getId());
+        List<Note> filteredNotes = notes.stream()
+                .filter(note -> note.getTitle().toLowerCase().contains(searchText) || note.getContent().toLowerCase().contains(searchText))
+                .collect(Collectors.toList());
+        ObservableList<String> notesList = FXCollections.observableArrayList();
+        for (Note note : filteredNotes) {
+            notesList.add(note.getTitle() + ": " + note.getContent());
+        }
+        notesListView.setItems(notesList);
     }
 
     private void loadNotes() {

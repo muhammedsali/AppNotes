@@ -6,11 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<<<<<<< HEAD
 <VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.appnotes.LoginController" stylesheets="@/styles.css">
-=======
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.appnotes.LoginController" stylesheets="@styles.css">
->>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
     <TextField fx:id="usernameField" promptText="Username" minWidth="200" />
     <PasswordField fx:id="passwordField" promptText="Password" minWidth="200" />
     <Button text="Login" onAction="#login" minWidth="100" />

@@ -4,11 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
 
-<<<<<<< HEAD
 <VBox alignment="CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.appnotes.MainController" stylesheets="@/styles.css">
-=======
-<VBox alignment="CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.appnotes.MainController" stylesheets="@styles.css">
->>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
     <Button text="Manage Notes" onAction="#showNotes" minWidth="200" />
     <Button text="Manage Books" onAction="#showBooks" minWidth="200" />
     <Button text="Export Notes" onAction="#exportNotes" minWidth="200" />

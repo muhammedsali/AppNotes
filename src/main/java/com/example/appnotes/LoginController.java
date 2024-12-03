@@ -6,69 +6,81 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
+import javafx.scene.Node;
+import javafx.event.ActionEvent;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginController {
+    private static User currentUser;
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User user) {
+        currentUser = user;
+    }
+
     @FXML
     private TextField usernameField;
 
     @FXML
     private PasswordField passwordField;
 
-    private UserDAO userDAO;
-    private static User currentUser;
+    private final UserDAO userDAO;
+
+    private static final Logger LOGGER = Logger.getLogger(LoginController.class.getName());
 
     public LoginController() {
         userDAO = new UserDAO();
     }
 
     @FXML
-    private void login() {
+    private void login(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        User user = userDAO.getUserByUsername(username);
-        if (user != null) {
-            try {
-                if (PasswordHash.verifyPassword(password, user.getPassword())) {
-                    System.out.println("Login successful!");
-                    currentUser = user;
-                    Stage stage = (Stage) usernameField.getScene().getWindow();
-                    stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("main-view.fxml"))));
-                } else {
-                    System.out.println("Login failed!");
-                }
-            } catch (NoSuchAlgorithmException | IOException e) {
-                e.printStackTrace();
+        if (!username.isEmpty() && !password.isEmpty()) {
+            User user = userDAO.getUserByUsername(username);
+            if (user != null && user.getPassword().equals(password)) {
+                System.out.println("Login successful!");
+                setCurrentUser(user);
+                showMain(event);
+            } else {
+                System.out.println("Invalid username or password.");
             }
         } else {
-            System.out.println("Login failed!");
+            System.out.println("Username and password cannot be empty.");
         }
     }
 
-    public static User getCurrentUser() {
-        return currentUser;
-    }
-
     @FXML
-    private void showRegister() {
+    private void showRegister(ActionEvent event) {
         try {
-            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("register-view.fxml"))));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed to load register view", e);
+        }
+    }
+
+    private void showMain(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("main-view.fxml"))));
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Failed to load main view", e);
         }
     }
 
     @FXML
-    private void logout() {
-        currentUser = null;
+    private void logout(ActionEvent event) {
         try {
-            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("login-view.fxml"))));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Failed to load login view", e);
         }
     }
 }

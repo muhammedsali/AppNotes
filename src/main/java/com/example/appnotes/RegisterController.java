@@ -28,7 +28,6 @@ public class RegisterController {
         String username = usernameField.getText();
         String password = passwordField.getText();
         if (!username.isEmpty() && !password.isEmpty()) {
-<<<<<<< HEAD
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
@@ -37,22 +36,6 @@ public class RegisterController {
             showLogin();
         } else {
             System.out.println("Username and password cannot be empty.");
-=======
-            try {
-                String hashedPassword = PasswordHash.hashPassword(password);
-                User user = new User();
-                user.setUsername(username);
-                user.setPassword(hashedPassword);
-                System.out.println("Adding user: " + username);
-                userDAO.addUser(user);
-                System.out.println("Registration successful!");
-                showLogin();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("Please fill all fields.");
->>>>>>> 5c36c321e7fc8c4690d939c2304bcef1a30bcdbb
         }
     }
 
